@@ -3,7 +3,7 @@ from m5ui import *
 from uiflow import *
 
 setScreenColor(0x111111)
-wifi_logs = M5TextBox(130, 5, '', lcd.FONT_Default, 0xFFFFFF, rotate=90)
+wifi_logs = M5TextBox(130, 30, '', lcd.FONT_Default, 0xFFFFFF, rotate=90)
 
 
 def get_wifi():
@@ -66,10 +66,11 @@ def is_connected():
 
 def get_wifi_status():
     import wifiCfg
-    wifi_logs.setText('')
     if wifiCfg.wlan_sta.isconnected():
+        wifi_logs.setText("")
         wifi_logs.setText("Wifi ok!")
     else:
+        wifi_logs.setText("")
         wifi_logs.setText("No wifi")
         wait(2)
         wifi_logs.setText("Press side button to connect")
@@ -81,7 +82,7 @@ def wifi_connect():
     import time
     import network
 
-    wifi_logs = M5TextBox(130, 5, "-", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+    wifi_logs = M5TextBox(130, 30, "-", lcd.FONT_Default, 0xFFFFFF, rotate=90)
     wifi_logs.setText("Connecting to wifi...")
 
     ssid = "DIGIFIBRA-ZDsk"
