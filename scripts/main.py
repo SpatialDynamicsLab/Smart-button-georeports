@@ -106,6 +106,48 @@ def btn_a_was_pressed():
     set_app()
 
 
+def buttonA_wasDoublePress():
+    get_wifi_status()
+    data = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+              dd_formating(gps_0.latitude, gps_0.longitude)[1],
+              dd_formating(gps_0.latitude, gps_0.longitude)[0]
+            ]
+        },
+        "properties": {
+            "visible": "on",
+            "location_type": "citizen-near-miss-report",
+            "submitter_name": str(api_key)
+        }
+    }
+    api_headers = {'Authorization': 'Api-Key kx4l16yF.q1gHBjnPuQziHE9KCVRpTRMkyWfdo1Gz'}
+    gps_logger = M5TextBox(15, 25, "GPS:", lcd.FONT_Default, 0xFFFFFF, rotate=90)
+    geo_status = M5TextBox(130, 95, "", lcd.FONT_Default, 0x33ff33, rotate=90)
+    try:
+      sending_data()
+      response = urequests.request(
+        method='POST',
+        url='https://api-ucd-community-georeports.kaizenmaps.com/api/v2/spatialdynamicslab/datasets/cycling-safety/places',
+        json=data, 
+        headers=api_headers
+      )
+      sending_data()
+      sending_data_true()
+      geo_status.setText("GPS location saved")
+    except Exception as ex:
+      ezdata.setData('C6J5te2z8Qfr5rkLPXCeRUkyjW3kSAgB', 'info', str(ex))
+      geo_status.setColor(0xff0000)
+      geo_status.setText("GPS loc. not saved")
+    
+    wait(2)
+    setScreenColor(0x111111)
+    set_app()
+
+
+
 def btn_b_was_pressed():
     get_wifi()
     pass
@@ -174,6 +216,7 @@ def load_gps():
       sat_logs.setText(str(gps_0.pos_quality))
       
 btnA.wasPressed(btn_a_was_pressed)
+btnA.wasDoublePress(buttonA_wasDoublePress)
 btnB.wasPressed(btn_b_was_pressed)
 
 set_app()
