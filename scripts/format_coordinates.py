@@ -19,6 +19,6 @@ def dd_formating(dd_lat, dd_long):
         long = get_long
     return lat, long
 
-coords = dd_formating('4024.83899N', '00342.73526W')
+coords = dd_formating('4024.58146N', '00342.72859W')
 print(coords[0])
 print(coords[1])
