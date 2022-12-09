@@ -106,7 +106,7 @@ def btn_a_was_pressed():
     set_app()
 
 
-def buttonA_was_long_press():
+def buttonA_was_double_press():
     get_wifi_status()
     data = {
         "type": "Feature",
@@ -218,7 +218,7 @@ def load_gps():
       sat_logs.setText(str(gps_0.pos_quality))
       
 btnA.wasPressed(btn_a_was_pressed)
-btnA.pressFor(0.8, buttonA_was_long_press)
+btnA.wasDoublePress(buttonA_was_double_press)
 btnB.wasPressed(btn_b_was_pressed)
 
 set_app()
