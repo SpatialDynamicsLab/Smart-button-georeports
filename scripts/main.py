@@ -78,7 +78,7 @@ def btn_a_was_pressed():
         },
         "properties": {
             "visible": "on",
-            "location_type": "cyclist-hazard",
+            "location_type": "obstructions",
             "submitter_name": str(api_key)
         }
     }
@@ -106,7 +106,7 @@ def btn_a_was_pressed():
     set_app()
 
 
-def buttonA_wasDoublePress():
+def buttonA_was_long_press():
     get_wifi_status()
     data = {
         "type": "Feature",
@@ -119,7 +119,7 @@ def buttonA_wasDoublePress():
         },
         "properties": {
             "visible": "on",
-            "location_type": "citizen-near-miss-report",
+            "location_type": "poor-road-condition",
             "submitter_name": str(api_key)
         }
     }
@@ -202,6 +202,8 @@ def load_gps():
       wait_ms(500)
       circle0.setSize(25)
     else:
+      circle0.hide()
+      triangle0.hide()
       wait_ms(250)
       M5Led.on()
       wait_ms(250)
@@ -216,7 +218,7 @@ def load_gps():
       sat_logs.setText(str(gps_0.pos_quality))
       
 btnA.wasPressed(btn_a_was_pressed)
-btnA.wasDoublePress(buttonA_wasDoublePress)
+btnA.pressFor(0.8, buttonA_was_long_press)
 btnB.wasPressed(btn_b_was_pressed)
 
 set_app()
